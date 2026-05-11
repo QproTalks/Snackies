@@ -1,1 +1,4 @@
-
+'use client';
+import { useMemo, useState } from 'react';
+import { products } from '@/lib/products';
+export default function Admin(){const [pass,setPass]=useState(''); const ok=pass && pass===process.env.NEXT_PUBLIC_ADMIN_PASSWORD; const total=useMemo(()=>products.reduce((s,p)=>s+p.stock*p.priceEur,0),[]); return <main className="admin"><h1>Snackies Admin</h1>{!ok?<section className="panel"><p>Demo admin dashboard. For production, replace with Supabase/Clerk role-based auth.</p><input type="password" placeholder="Admin password" value={pass} onChange={e=>setPass(e.target.value)}/></section>:<section className="grid"><div className="panel"><h2>{products.length}</h2><p>Products</p></div><div className="panel"><h2>€{total.toFixed(2)}</h2><p>Inventory retail value</p></div><div className="panel"><h2>Stripe</h2><p>Orders, coupons, taxes, and receipts are managed in Stripe Dashboard.</p></div><div className="panel wide"><h2>Low Stock</h2><ul>{products.filter(p=>p.stock<50).map(p=><li key={p.id}>{p.name}: {p.stock}</li>)}</ul></div></section>}</main>}
