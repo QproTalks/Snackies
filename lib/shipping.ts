@@ -2,7 +2,7 @@ export const shippingOptions = [
   {
     id: 'nl_standard',
     label: 'Netherlands standard parcel',
-    amount: 495,
+    amount: 0,
     countries: ['NL'],
     note: 'Free shipping'
   },
@@ -45,12 +45,6 @@ export const allowedShippingCountries = Array.from(
 
 // FREE SHIPPING FUNCTION
 export function getShippingPrice(country: string, subtotal: number) {
-
-  // Free shipping Netherlands
-  if (country === 'NL' && subtotal >= 0) {
-    return 0;
-  }
-
   const option = shippingOptions.find(s =>
     s.countries.includes(country)
   );
